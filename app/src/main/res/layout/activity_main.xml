@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="user"
+            type="com.example.administrator.databindingdemo.bean.User"/>
+        <variable
+            name="mainActivity"
+            type="com.example.administrator.databindingdemo.MainActivity"/>
+          <variable
+              name="text"
+              type="com.example.administrator.databindingdemo.bean.Text"/>
+    </data>
+
+    <LinearLayout
+        android:id="@+id/activity_main"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:afterTextChanged="@{(s) -> user.setFirstName(s.toString())}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{user.firstName}"
+            android:textColor="@android:color/white"
+            android:background="@{Integer.parseInt(user.age) &lt; 20 ? 0xffff0000 : 0xff0000ff}"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{(v) -> mainActivity.btnClick(v, user.firstName)}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{user.age}"
+            />
+        <View
+            android:background="@color/colorAccent"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="startListActivity"
+            android:onClick="@{(v) -> mainActivity.startListActivity(v)}"/>
+
+        <!--自定义属性-->
+
+        <ImageView
+            app:img="@{user.imgUrl}"
+            android:src="@mipmap/ic_launcher"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{text.content}"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{(v) -> text.setContent(user.firstName)}"
+                android:text="change model"/>
+
+        </LinearLayout>
+    
+    
+    </LinearLayout>
+    
+</layout>
